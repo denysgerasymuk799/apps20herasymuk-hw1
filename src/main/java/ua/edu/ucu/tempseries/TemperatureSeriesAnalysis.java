@@ -1,14 +1,13 @@
 package ua.edu.ucu.tempseries;
 
 
-import lombok.Getter;
 import ua.edu.ucu.tempseries.comparators.ComparatorGreaterArrayItem;
 import ua.edu.ucu.tempseries.comparators.ComparatorLessArrayItem;
 import ua.edu.ucu.tempseries.comparators.MyComparator;
 
 import java.util.InputMismatchException;
 
-@Getter
+
 public class TemperatureSeriesAnalysis {
     static final double MIN_TEMP = -273;
 
@@ -27,6 +26,10 @@ public class TemperatureSeriesAnalysis {
             }
         }
         temperatureArray = temperatureSeries;
+    }
+
+    public double[] getTemperatureArray() {
+        return temperatureArray;
     }
 
     public double average() {

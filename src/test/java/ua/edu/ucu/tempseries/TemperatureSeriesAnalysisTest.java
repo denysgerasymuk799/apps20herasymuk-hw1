@@ -67,14 +67,13 @@ public class TemperatureSeriesAnalysisTest {
         assertEquals(expResult, actualResult, 0.00001);
     }
 
-//    @Ignore
     @Test(expected = IllegalArgumentException.class)
     public void testAverageWithEmptyArray() {
         // expect exception here
         seriesAnalysisEmptyArr.average();
     }
 
-//    @Ignore
+
     @Test
     public void testAverageLittleSample() {
         double expResult = 1.0;
