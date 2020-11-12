@@ -69,9 +69,9 @@ public class TemperatureSeriesAnalysis {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
 
-        double value = 0;
+        double value = specialValue;
         for (double v : temperatureArray) {
-            if (comparator.compare(specialValue, v)) {
+            if (comparator.compare(value, v)) {
                 value = v;
             }
         }
