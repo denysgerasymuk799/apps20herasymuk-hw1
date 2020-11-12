@@ -3,9 +3,10 @@ package ua.edu.ucu.tempseries;
 public class MyArray {
     /**
      * analogy to append and slice functions in Python
-     * Idea was taken from here https://medium.com/@yasufumy/data-structure-dynamic-array-3370cd7088ec
+     * Idea was taken from here
+     * https://medium.com/@yasufumy/data-structure-dynamic-array-3370cd7088ec
      */
-    public static double[] changeArrayLength(double[] arr1, int start, int end) {
+    public static double[] changeArrayLength(double[] arr1, int start, int end){
         double[] arr2 = new double[end - start];
         int nSteps;
 

@@ -12,7 +12,7 @@ public class TemperatureSeriesAnalysis {
     public double[] temperatureArray;
     public double averageOfArray, deviationOfArray;
     public double minOfArray, maxOfArray;
-    public double minPossibleTemperature = -273;
+    static final double minPossibleTemperature = -273;
 
     public TemperatureSeriesAnalysis() {
         temperatureArray = new double[]{};
@@ -49,7 +49,7 @@ public class TemperatureSeriesAnalysis {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
 
-        double averageOfArray = average();
+        averageOfArray = average();
 
         double sumForDeviation = 0;
         for (double v : temperatureArray) {
@@ -69,12 +69,13 @@ public class TemperatureSeriesAnalysis {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
 
+        double value = 0;
         for (double v : temperatureArray) {
             if (comparator.compare(specialValue, v)) {
-                specialValue = v;
+                value = v;
             }
         }
-
+        specialValue = value;
         return specialValue;
     }
 
@@ -125,16 +126,18 @@ public class TemperatureSeriesAnalysis {
         int positionValuesArray = 0;
         for (double t : temperatureArray) {
             if (comparator.compare(tempValue, t)) {
-                if (positionValuesArray == valuesArray.length)
+                if (positionValuesArray == valuesArray.length){
                     valuesArray = MyArray.changeArrayLength(valuesArray, 0, valuesArray.length * 2);
+                }
 
                 valuesArray[positionValuesArray++] = t;
             }
         }
 
         // make slice
-        if (valuesArray.length > positionValuesArray)
+        if (valuesArray.length > positionValuesArray){
             valuesArray = MyArray.changeArrayLength(valuesArray, 0, positionValuesArray);
+        }
 
         return valuesArray;
     }
@@ -163,12 +166,14 @@ public class TemperatureSeriesAnalysis {
         int positionValuesArray = temperatureArray.length;
         double sumTemperatures = 0;
         for (double temp : temps) {
-            if (temp < minPossibleTemperature)
+            if (temp < minPossibleTemperature){
                 continue;
+            }
 
-            if (positionValuesArray == temperatureArray.length)
+            if (positionValuesArray == temperatureArray.length){
                 temperatureArray = MyArray.changeArrayLength(temperatureArray, 0,
                         temperatureArray.length * 2);
+            }
 
             temperatureArray[positionValuesArray++] = temp;
             sumTemperatures += temp;
