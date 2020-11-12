@@ -10,7 +10,7 @@ import java.util.InputMismatchException;
 
 @Getter
 public class TemperatureSeriesAnalysis {
-    static final double MinPossibleTemperature = -273;
+    static final double MIN_TEMP = -273;
 
     private double[] temperatureArray;
     private double averageOfArray, deviationOfArray;
@@ -22,7 +22,7 @@ public class TemperatureSeriesAnalysis {
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         for (double temperature : temperatureSeries) {
-            if (temperature < MinPossibleTemperature) {
+            if (temperature < MIN_TEMP) {
                 throw new InputMismatchException("Value less than -273C");
             }
         }
@@ -68,7 +68,7 @@ public class TemperatureSeriesAnalysis {
      * Additional function
      */
     public double findSpecialValue(double specialValue,
-                                   MyComparator comparator){
+                                   MyComparator comparator) {
         if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
@@ -120,14 +120,18 @@ public class TemperatureSeriesAnalysis {
         return closestValueToValue;
     }
 
+    /**
+     * I checked my idea and found how dynamical
+     * arrays made in python here
+     * https://medium.com/@yasufumy/data-structure-dynamic-array-3370cd7088ec
+     */
     public double[] compareItemsWithValue(double tempValue,
-                                          MyComparator comparator){
+                                          MyComparator comparator) {
         if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
 
         // make minimum array of two elements, such as in python
-        // https://medium.com/@yasufumy/data-structure-dynamic-array-3370cd7088ec
         double[] valuesArray = new double[2];
         int positionValuesArray = 0;
         for (double t : temperatureArray) {
@@ -151,11 +155,13 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double[] findTempsLessThen(double tempValue) {
-        return compareItemsWithValue(tempValue, new ComparatorLessArrayItem());
+        return compareItemsWithValue(tempValue,
+                new ComparatorLessArrayItem());
     }
 
     public double[] findTempsGreaterThen(double tempValue) {
-        return compareItemsWithValue(tempValue, new ComparatorGreaterArrayItem());
+        return compareItemsWithValue(tempValue,
+                new ComparatorGreaterArrayItem());
     }
 
     public TempSummaryStatistics summaryStatistics() {
@@ -175,7 +181,7 @@ public class TemperatureSeriesAnalysis {
         int positionValuesArray = temperatureArray.length;
         double sumTemperatures = 0;
         for (double temp : temps) {
-            if (temp < MinPossibleTemperature) {
+            if (temp < MIN_TEMP) {
                 continue;
             }
 

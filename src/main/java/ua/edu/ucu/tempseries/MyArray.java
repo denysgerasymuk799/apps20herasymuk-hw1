@@ -17,7 +17,7 @@ public class MyArray {
             nSteps = end - start;
         }
 
-        if (nSteps >= 0){
+        if (nSteps >= 0) {
             System.arraycopy(arr, start, newArr, 0, nSteps);
         }
 
