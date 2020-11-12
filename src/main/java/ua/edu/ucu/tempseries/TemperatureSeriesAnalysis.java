@@ -203,7 +203,8 @@ public class TemperatureSeriesAnalysis {
 
     /**
      *
-     * Returns an immutable instance of the TempSummaryStatistics class that contains information:
+     * Returns an immutable instance of the TempSummaryStatistics class
+     * that contains information:
      * - double avgTemp;
      * - double devTemp;
      * - double minTemp;
