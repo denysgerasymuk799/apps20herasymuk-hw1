@@ -32,6 +32,11 @@ public class TemperatureSeriesAnalysis {
         return temperatureArray;
     }
 
+    /**
+     *
+     * Calculates the average temperature.
+     * If the row is empty, generates an IllegalArgumentException
+     */
     public double average() {
         if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
@@ -47,7 +52,9 @@ public class TemperatureSeriesAnalysis {
     }
 
     /**
-      * formula was taken from here
+     * Calculate the standard deviation.
+     * If the row is empty, generates an IllegalArgumentException.
+     * formula was taken from here
      * https://www.mathsisfun.com/data/standard-deviation-formulas.html
      **/
     public double deviation() {
@@ -85,22 +92,41 @@ public class TemperatureSeriesAnalysis {
         return value;
     }
 
+    /**
+     *
+     * Returns the minimum temperature.
+     * If the row is empty, generates an IllegalArgumentException.
+     */
     public double min() {
         minOfArray = findSpecialValue(Double.POSITIVE_INFINITY,
                 new ComparatorLessArrayItem());
         return minOfArray;
     }
-    
+
+    /**
+     *
+     * Returns the maximum temperature.
+     * If the row is empty, generates an IllegalArgumentException.
+     */
     public double max() {
         maxOfArray = findSpecialValue(Double.NEGATIVE_INFINITY,
                 new ComparatorGreaterArrayItem());
         return maxOfArray;
     }
 
+    /**
+     *
+     * Returns the temperature value closest to 0
+     */
     public double findTempClosestToZero() {
         return findTempClosestToValue(0);
     }
 
+    /**
+     *
+     * @param tempValue: double, value to compare
+     * returns the value closest to the specified tempValue
+     */
     public double findTempClosestToValue(double tempValue) {
         if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
@@ -157,16 +183,32 @@ public class TemperatureSeriesAnalysis {
         return valuesArray;
     }
 
+    /**
+     * Returns an array with temperature values
+     * less than the specified tempValue
+     */
     public double[] findTempsLessThen(double tempValue) {
         return compareItemsWithValue(tempValue,
                 new ComparatorLessArrayItem());
     }
 
+    /**
+     * Returns an array with temperature values
+     * greater than the specified tempValue
+     */
     public double[] findTempsGreaterThen(double tempValue) {
         return compareItemsWithValue(tempValue,
                 new ComparatorGreaterArrayItem());
     }
 
+    /**
+     *
+     * Returns an immutable instance of the TempSummaryStatistics class that contains information:
+     * - double avgTemp;
+     * - double devTemp;
+     * - double minTemp;
+     * - double maxTemp;
+     */
     public TempSummaryStatistics summaryStatistics() {
         if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
@@ -176,6 +218,17 @@ public class TemperatureSeriesAnalysis {
                 deviationOfArray, minOfArray, maxOfArray);
     }
 
+    /**
+     *
+     * Adds new temperature values to the end of
+     * a series of existing data, and returns
+     * the total number of temperature values.
+     * The structure (array) in the class TemperatureSeriesAnalysis
+     * for storage of already transferred temperatures should increase 2 times
+     * if in it there is no place for storage of new values
+     *
+     * @return sum of tempts, that we add to our
+     */
     public double addTemps(double... temps) {
         if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
