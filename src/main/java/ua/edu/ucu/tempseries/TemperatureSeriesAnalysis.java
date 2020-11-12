@@ -1,18 +1,20 @@
 package ua.edu.ucu.tempseries;
 
 
+import lombok.Getter;
 import ua.edu.ucu.tempseries.comparators.ComparatorGreaterArrayItem;
 import ua.edu.ucu.tempseries.comparators.ComparatorLessArrayItem;
 import ua.edu.ucu.tempseries.comparators.MyComparator;
 
 import java.util.InputMismatchException;
 
-
+@Getter
 public class TemperatureSeriesAnalysis {
-    public double[] temperatureArray;
-    public double averageOfArray, deviationOfArray;
-    public double minOfArray, maxOfArray;
-    static final double minPossibleTemperature = -273;
+    static final double MinPossibleTemperature = -273;
+
+    private double[] temperatureArray;
+    private double averageOfArray, deviationOfArray;
+    private double minOfArray, maxOfArray;
 
     public TemperatureSeriesAnalysis() {
         temperatureArray = new double[]{};
@@ -20,7 +22,7 @@ public class TemperatureSeriesAnalysis {
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         for (double temperature : temperatureSeries) {
-            if (temperature < minPossibleTemperature) {
+            if (temperature < MinPossibleTemperature) {
                 throw new InputMismatchException("Value less than -273C");
             }
         }
@@ -28,7 +30,7 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double average() {
-        if (temperatureArray.length == 0){
+        if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
 
@@ -42,10 +44,11 @@ public class TemperatureSeriesAnalysis {
     }
 
     /**
-      * formula was taken from here - https://www.mathsisfun.com/data/standard-deviation-formulas.html
+      * formula was taken from here
+     * https://www.mathsisfun.com/data/standard-deviation-formulas.html
      **/
     public double deviation() {
-        if (temperatureArray.length == 0){
+        if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
 
@@ -53,7 +56,7 @@ public class TemperatureSeriesAnalysis {
 
         double sumForDeviation = 0;
         for (double v : temperatureArray) {
-            sumForDeviation += Math.pow(v - averageOfArray, 2);
+            sumForDeviation += (v - averageOfArray) * (v - averageOfArray);
         }
 
         sumForDeviation /= temperatureArray.length;
@@ -64,8 +67,9 @@ public class TemperatureSeriesAnalysis {
     /**
      * Additional function
      */
-    public double findSpecialValue(double specialValue, MyComparator comparator){
-        if (temperatureArray.length == 0){
+    public double findSpecialValue(double specialValue,
+                                   MyComparator comparator){
+        if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
 
@@ -75,17 +79,18 @@ public class TemperatureSeriesAnalysis {
                 value = v;
             }
         }
-        specialValue = value;
-        return specialValue;
+        return value;
     }
 
     public double min() {
-        minOfArray = findSpecialValue(Double.POSITIVE_INFINITY, new ComparatorLessArrayItem());
+        minOfArray = findSpecialValue(Double.POSITIVE_INFINITY,
+                new ComparatorLessArrayItem());
         return minOfArray;
     }
     
     public double max() {
-        maxOfArray = findSpecialValue(Double.NEGATIVE_INFINITY, new ComparatorGreaterArrayItem());
+        maxOfArray = findSpecialValue(Double.NEGATIVE_INFINITY,
+                new ComparatorGreaterArrayItem());
         return maxOfArray;
     }
 
@@ -94,7 +99,7 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double findTempClosestToValue(double tempValue) {
-        if (temperatureArray.length == 0){
+        if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
 
@@ -115,8 +120,9 @@ public class TemperatureSeriesAnalysis {
         return closestValueToValue;
     }
 
-    public double[] compareItemsWithValue(double tempValue, MyComparator comparator){
-        if (temperatureArray.length == 0){
+    public double[] compareItemsWithValue(double tempValue,
+                                          MyComparator comparator){
+        if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
 
@@ -126,8 +132,9 @@ public class TemperatureSeriesAnalysis {
         int positionValuesArray = 0;
         for (double t : temperatureArray) {
             if (comparator.compare(tempValue, t)) {
-                if (positionValuesArray == valuesArray.length){
-                    valuesArray = MyArray.changeArrayLength(valuesArray, 0, valuesArray.length * 2);
+                if (positionValuesArray == valuesArray.length) {
+                    valuesArray = MyArray.changeArrayLen(valuesArray,
+                            0, valuesArray.length * 2);
                 }
 
                 valuesArray[positionValuesArray++] = t;
@@ -135,8 +142,9 @@ public class TemperatureSeriesAnalysis {
         }
 
         // make slice
-        if (valuesArray.length > positionValuesArray){
-            valuesArray = MyArray.changeArrayLength(valuesArray, 0, positionValuesArray);
+        if (valuesArray.length > positionValuesArray) {
+            valuesArray = MyArray.changeArrayLen(valuesArray,
+                    0, positionValuesArray);
         }
 
         return valuesArray;
@@ -151,27 +159,28 @@ public class TemperatureSeriesAnalysis {
     }
 
     public TempSummaryStatistics summaryStatistics() {
-        if (temperatureArray.length == 0){
+        if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
         
-        return new TempSummaryStatistics(averageOfArray, deviationOfArray, minOfArray, maxOfArray);
+        return new TempSummaryStatistics(averageOfArray,
+                deviationOfArray, minOfArray, maxOfArray);
     }
 
     public double addTemps(double... temps) {
-        if (temperatureArray.length == 0){
+        if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
 
         int positionValuesArray = temperatureArray.length;
         double sumTemperatures = 0;
         for (double temp : temps) {
-            if (temp < minPossibleTemperature){
+            if (temp < MinPossibleTemperature) {
                 continue;
             }
 
-            if (positionValuesArray == temperatureArray.length){
-                temperatureArray = MyArray.changeArrayLength(temperatureArray, 0,
+            if (positionValuesArray == temperatureArray.length) {
+                temperatureArray = MyArray.changeArrayLen(temperatureArray, 0,
                         temperatureArray.length * 2);
             }
 

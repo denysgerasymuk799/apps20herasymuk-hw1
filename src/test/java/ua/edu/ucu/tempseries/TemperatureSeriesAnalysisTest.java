@@ -533,20 +533,20 @@ public class TemperatureSeriesAnalysisTest {
     @Test
     public void testAddTempsWithOneElementArray() {
         double expResult = 0.8;
-        double expLength = seriesAnalysisOneElement1.temperatureArray.length + 1;
+        double expLength = seriesAnalysisOneElement1.getTemperatureArray().length + 1;
 
         double actualResult = seriesAnalysisOneElement1.addTemps(0.8);
 
         assertEquals(expResult, actualResult, 0.0001);
-        assertEquals(expLength, seriesAnalysisOneElement1.temperatureArray.length, 0.0001);
+        assertEquals(expLength, seriesAnalysisOneElement1.getTemperatureArray().length, 0.0001);
 
 
         expResult = 0.8;
-        expLength = seriesAnalysisOneElement2.temperatureArray.length + 3;
+        expLength = seriesAnalysisOneElement2.getTemperatureArray().length + 3;
         actualResult = seriesAnalysisOneElement2.addTemps(0.0, 0.0, 0.8);
 
         assertEquals(expResult, actualResult, 0.0001);
-        assertEquals(expLength, seriesAnalysisOneElement2.temperatureArray.length, 0.0001);
+        assertEquals(expLength, seriesAnalysisOneElement2.getTemperatureArray().length, 0.0001);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -558,35 +558,35 @@ public class TemperatureSeriesAnalysisTest {
     public void testAddTempsLittleSample() {
         double expResult = 0.8;
 
-        int lengthTemperatureArray = seriesAnalysisLittleSample.temperatureArray.length;
+        int lengthTemperatureArray = seriesAnalysisLittleSample.getTemperatureArray().length;
         double expLength = (lengthTemperatureArray - (lengthTemperatureArray % 2)) * 2;
 
         double actualResult = seriesAnalysisLittleSample.addTemps(0.0, 0.0, 0.8);
 
         assertEquals(expResult, actualResult, 0.0001);
-        assertEquals(expLength, seriesAnalysisLittleSample.temperatureArray.length, 0.0001);
+        assertEquals(expLength, seriesAnalysisLittleSample.getTemperatureArray().length, 0.0001);
     }
 
     @Test
     public void testAddTempsBigSample() {
         double expResult = 16.8;
-        int lengthTemperatureArray = seriesAnalysisBigSample.temperatureArray.length;
+        int lengthTemperatureArray = seriesAnalysisBigSample.getTemperatureArray().length;
         double expLength = (lengthTemperatureArray - (lengthTemperatureArray % 2)) * 2;
 
         double actualResult = seriesAnalysisBigSample.addTemps(15.0, -16.0, 17.8);
 
         assertEquals(expResult, actualResult, 0.0001);
-        assertEquals(expLength, seriesAnalysisBigSample.temperatureArray.length, 0.0001);
+        assertEquals(expLength, seriesAnalysisBigSample.getTemperatureArray().length, 0.0001);
     }
 
     @Test
     public void testAddTempsZeroSum() {
         double expResult = 0.0;
-        double expLength = seriesAnalysisZeroSum.temperatureArray.length;
+        double expLength = seriesAnalysisZeroSum.getTemperatureArray().length;
 
         double actualResult = seriesAnalysisZeroSum.addTemps(-274);
 
         assertEquals(expResult, actualResult, 0.00001);
-        assertEquals(expLength, seriesAnalysisZeroSum.temperatureArray.length, 0.0001);
+        assertEquals(expLength, seriesAnalysisZeroSum.getTemperatureArray().length, 0.0001);
     }
 }
