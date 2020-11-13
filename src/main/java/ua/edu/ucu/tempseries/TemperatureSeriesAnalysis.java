@@ -145,7 +145,7 @@ public class TemperatureSeriesAnalysis {
             if (Math.abs(t - tempValue) < closestLenToTempValue) {
                 closestValueToValue = t;
                 closestLenToTempValue = Math.abs(t - tempValue);
-            } else if (Math.abs(t - tempValue) == closestLenToTempValue) {
+            } else if (Math.abs(Math.abs(t - tempValue) - closestLenToTempValue) < 0.0001) {
                 if (t > closestValueToValue) {
                     closestValueToValue = t;
                     closestLenToTempValue = Math.abs(t - tempValue);
