@@ -11,6 +11,7 @@ import java.util.InputMismatchException;
 @Getter
 public class TemperatureSeriesAnalysis {
     static final double MIN_TEMP = -273;
+    static final double MIN_DOUBLE_DIFFERENCE = 0.0001;
 
     private double[] temperatureArray;
     private double averageOfArray = 0;
@@ -145,7 +146,8 @@ public class TemperatureSeriesAnalysis {
             if (Math.abs(t - tempValue) < closestLenToTempValue) {
                 closestValueToValue = t;
                 closestLenToTempValue = Math.abs(t - tempValue);
-            } else if (Math.abs(Math.abs(t - tempValue) - closestLenToTempValue) < 0.0001) {
+            } else if (Math.abs(Math.abs(t - tempValue) -
+                    closestLenToTempValue) < MIN_DOUBLE_DIFFERENCE) {
                 if (t > closestValueToValue) {
                     closestValueToValue = t;
                     closestLenToTempValue = Math.abs(t - tempValue);
