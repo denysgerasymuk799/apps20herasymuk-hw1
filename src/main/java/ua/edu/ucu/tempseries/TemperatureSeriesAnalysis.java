@@ -6,7 +6,6 @@ import ua.edu.ucu.tempseries.comparators.ComparatorGreaterArrayItem;
 import ua.edu.ucu.tempseries.comparators.ComparatorLessArrayItem;
 import ua.edu.ucu.tempseries.comparators.MyComparator;
 
-import java.util.Arrays;
 import java.util.InputMismatchException;
 
 @Getter
