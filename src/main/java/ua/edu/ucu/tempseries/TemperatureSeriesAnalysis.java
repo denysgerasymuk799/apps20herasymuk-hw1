@@ -6,6 +6,7 @@ import ua.edu.ucu.tempseries.comparators.ComparatorGreaterArrayItem;
 import ua.edu.ucu.tempseries.comparators.ComparatorLessArrayItem;
 import ua.edu.ucu.tempseries.comparators.MyComparator;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 @Getter
@@ -13,8 +14,10 @@ public class TemperatureSeriesAnalysis {
     static final double MIN_TEMP = -273;
 
     private double[] temperatureArray;
-    private double averageOfArray = 0, deviationOfArray = 0;
-    private double minOfArray = 0, maxOfArray = 0;
+    private double averageOfArray = 0;
+    private double deviationOfArray = 0;
+    private double minOfArray = 0;
+    private double maxOfArray = 0;
 
     public TemperatureSeriesAnalysis() {
         temperatureArray = new double[]{};
@@ -220,19 +223,19 @@ public class TemperatureSeriesAnalysis {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
 
-        if (averageOfArray == 0){
+        if (averageOfArray == 0) {
             averageOfArray = average();
         }
 
-        if (deviationOfArray == 0){
+        if (deviationOfArray == 0) {
             deviationOfArray = deviation();
         }
 
-        if (minOfArray == 0){
+        if (minOfArray == 0) {
             minOfArray = min();
         }
 
-        if (maxOfArray == 0){
+        if (maxOfArray == 0) {
             maxOfArray = max();
         }
 
