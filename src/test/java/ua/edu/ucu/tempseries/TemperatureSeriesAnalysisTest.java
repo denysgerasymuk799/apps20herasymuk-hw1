@@ -4,9 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Ignore;
 
-import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysisTest {
@@ -42,10 +40,20 @@ public class TemperatureSeriesAnalysisTest {
     }
 
     @Test(expected = InputMismatchException.class)
-    public void testConstructor() {
+    public void testConstructorWithArr() {
         // expect exception here
         double[] temperatureSeries = {3.0, -5.0, 1.0, 5.0, -274};
         TemperatureSeriesAnalysis seriesAnalysisZeroSum = new TemperatureSeriesAnalysis(temperatureSeries);
+    }
+
+    @Test
+    public void testConstructor() {
+        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis();
+
+        assertEquals(seriesAnalysis.getAverageOfArray(), 0, 0.0001);
+        assertEquals(seriesAnalysis.getDeviationOfArray(), 0, 0.0001);
+        assertEquals(seriesAnalysis.getMinOfArray(), 0, 0.0001);
+        assertEquals(seriesAnalysis.getMaxOfArray(), 0, 0.0001);
     }
 
     /** ========================= Tests for Average ========================= **/
@@ -436,11 +444,6 @@ public class TemperatureSeriesAnalysisTest {
         double expMin = -1.0;
         double expMax = -1.0;
 
-        seriesAnalysisOneElement1.average();
-        seriesAnalysisOneElement1.deviation();
-        seriesAnalysisOneElement1.min();
-        seriesAnalysisOneElement1.max();
-
         TempSummaryStatistics actualResult = seriesAnalysisOneElement1.summaryStatistics();
 
         assertArrayEquals(new double[]{expAverage, expDeviation, expMin, expMax},
@@ -453,11 +456,6 @@ public class TemperatureSeriesAnalysisTest {
         expDeviation = 0.0;
         expMin = 0.0;
         expMax = 0.0;
-
-        seriesAnalysisOneElement2.average();
-        seriesAnalysisOneElement2.deviation();
-        seriesAnalysisOneElement2.min();
-        seriesAnalysisOneElement2.max();
 
         actualResult = seriesAnalysisOneElement2.summaryStatistics();
 
@@ -478,11 +476,6 @@ public class TemperatureSeriesAnalysisTest {
         double expMin = -5.0;
         double expMax = 5.0;
 
-        seriesAnalysisLittleSample.average();
-        seriesAnalysisLittleSample.deviation();
-        seriesAnalysisLittleSample.min();
-        seriesAnalysisLittleSample.max();
-
         TempSummaryStatistics actualResult = seriesAnalysisLittleSample.summaryStatistics();
 
         assertArrayEquals(new double[]{expAverage, expDeviation, expMin, expMax},
@@ -497,11 +490,6 @@ public class TemperatureSeriesAnalysisTest {
         double expMin = 2.0;
         double expMax = 12.0;
 
-        seriesAnalysisBigSample.average();
-        seriesAnalysisBigSample.deviation();
-        seriesAnalysisBigSample.min();
-        seriesAnalysisBigSample.max();
-
         TempSummaryStatistics actualResult = seriesAnalysisBigSample.summaryStatistics();
 
         assertArrayEquals(new double[]{expAverage, expDeviation, expMin, expMax},
@@ -515,11 +503,6 @@ public class TemperatureSeriesAnalysisTest {
         double expDeviation = 4.12310;
         double expMin = -5.0;
         double expMax = 5.0;
-
-        seriesAnalysisZeroSum.average();
-        seriesAnalysisZeroSum.deviation();
-        seriesAnalysisZeroSum.min();
-        seriesAnalysisZeroSum.max();
 
         TempSummaryStatistics actualResult = seriesAnalysisZeroSum.summaryStatistics();
 

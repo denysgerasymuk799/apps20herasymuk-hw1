@@ -1,31 +1,36 @@
 package ua.edu.ucu.tempseries;
 
 
+import lombok.Getter;
 import ua.edu.ucu.tempseries.comparators.ComparatorGreaterArrayItem;
 import ua.edu.ucu.tempseries.comparators.ComparatorLessArrayItem;
 import ua.edu.ucu.tempseries.comparators.MyComparator;
 
 import java.util.InputMismatchException;
 
-
+@Getter
 public class TemperatureSeriesAnalysis {
     static final double MIN_TEMP = -273;
 
     private double[] temperatureArray;
-    private double averageOfArray, deviationOfArray;
-    private double minOfArray, maxOfArray;
+    private double averageOfArray = 0, deviationOfArray = 0;
+    private double minOfArray = 0, maxOfArray = 0;
 
     public TemperatureSeriesAnalysis() {
         temperatureArray = new double[]{};
     }
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
+
         for (double temperature : temperatureSeries) {
             if (temperature < MIN_TEMP) {
                 throw new InputMismatchException("Value less than -273C");
             }
         }
-        temperatureArray = temperatureSeries;
+        temperatureArray = new double[temperatureSeries.length];
+        System.arraycopy(temperatureSeries, 0,
+                temperatureArray, 0,
+                temperatureSeries.length);
     }
 
     public double[] getTemperatureArray() {
@@ -214,7 +219,23 @@ public class TemperatureSeriesAnalysis {
         if (temperatureArray.length == 0) {
             throw new IllegalArgumentException("temperatureArray is empty");
         }
-        
+
+        if (averageOfArray == 0){
+            averageOfArray = average();
+        }
+
+        if (deviationOfArray == 0){
+            deviationOfArray = deviation();
+        }
+
+        if (minOfArray == 0){
+            minOfArray = min();
+        }
+
+        if (maxOfArray == 0){
+            maxOfArray = max();
+        }
+
         return new TempSummaryStatistics(averageOfArray,
                 deviationOfArray, minOfArray, maxOfArray);
     }
